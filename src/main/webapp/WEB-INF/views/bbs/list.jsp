@@ -16,7 +16,7 @@
 	<br>
 
 	<c:if test="${pageMaker.hasPrev}">
-		<a href="javascript:_goNextLine(${pageMaker.first}-1)">Prev ||</a>&nbsp;
+		<a href="javascript:_goPage(${pageMaker.first}-1)">[이전]</a>&nbsp;
 	</c:if>
 	
 	<c:forEach begin="${pageMaker.first }" end="${pageMaker.last }" var="idx">
@@ -26,23 +26,35 @@
 	<%-- <c:if test="${${pageMaker.perPage}*${pageMaker.last}+1 == ${pageMaker.getRowNum()}"> --%>
 	
 	<c:if test="${pageMaker.hasNext}">
-		&nbsp;<a href="javascript:_goNextLine(${pageMaker.last+1})">|| Next</a>
+		&nbsp;<a href="javascript:_goPage(${pageMaker.last}+1)">[다음]</a>
 	</c:if>
+
+<!-- 	<form method='get' name='pageForm'>
+		<input type='hidden' name='page'>
+	</form> -->
+	
+	<form name='searchForm'>
+	  <input type='hidden' name='bno'>
+	  <input type='hidden' name='page' value='${cri.page }'>
+	  <input type='text' name='keyword' value='${cri.keyword }'>
+	  <input type='checkbox' name="types" value="t" ${cri.checked("t") }>제목
+	  <input type='checkbox' name="types" value="w" ${cri.checked("w") }>작성자
+	  <input type='checkbox' name="types" value="c" ${cri.checked("c") }>본문
+	  <button onclick="javascript:goSearch();">Search</button>
+	</form>
 	<br>
 	${pageMaker}
 	
-	<form method='get' name='pageForm'>
-		<input type='hidden' name='page'>
-	</form>
+	
 	<script>
 		function _goPage(num){
+			document.searchForm.page.value = num;
+			document.searchForm.submit();
+		}
+		/* function _goNextLine(num){
 			document.pageForm.page.value = num;
 			document.pageForm.submit();
-		}
-		function _goNextLine(num){
-			document.pageForm.page.value = num;
-			document.pageForm.submit();
-		}
+		} */
 	</script>
 </body>
 </html>

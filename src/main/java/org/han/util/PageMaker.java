@@ -6,14 +6,14 @@ import org.springframework.stereotype.Service;
 public class PageMaker {
 
 	private int page; 					// 현재 페이지 - 기준값
-	private int cnt; 					// 전체 페이징을 구성하는데 필요한 데이터의 수 - 기준값
+	private int cnt; 					// 현재 화면의 페이징을 구성하는데 필요한 데이터의 수 - 기준값
 	private int lineCount; 				// 화면에서 보여주는 페이지 수 - 고정값
 	private int perPage; 				// 한 페이지에서 보여줄 게시물의 수 - 고정값
 	private int first; 					// lineCount의 첫 번호
 	private int last; 					// lineCount의 마지막 번호
 	private boolean hasNext = false;	// next버튼 표현여부
 	private boolean hasPrev = false;	// prev버튼 표현여부
-	private int rowNum;
+	private int rowNum;					// cnt를 생각하지 않은 페이징 구성에 필요한 데이터 값
 	
 	public static int getNumber(String str){
 		try{
@@ -123,26 +123,20 @@ public class PageMaker {
 	}
 	
 //	public int getRowNum(int pageNum){
-//		
 //		return (  ( (int)(Math.ceil(pageNum/(double)perPage)) ) * (perPage * lineCount))  +1;
-//	 	
 //	}
 //	
 //	public int getRowNum(){
-//		
 //		return (  ( (int)(Math.ceil(page/(double)perPage)) ) * (perPage * lineCount))  +1;
-//	 	
 //	}
-	
 	
 	public int getRowNum() {
 		return rowNum;
 	}
 	
-	public void setRowNum(String num) {
-		this.rowNum = (  ( (int)(Math.ceil(getNumber(num)/(double)perPage)) ) * (perPage * lineCount))  +1;
+	public void setRowNum() {
+		this.rowNum = (  ( (int)(Math.ceil(page/(double)perPage)) ) * (lineCount * perPage))  +1;
 	}
-	
 	
 	//ex: 12페이지를 보고 싶어요(명화)
 	//(  ( (int)(Math.ceil(12/(double)10)) ) * (10 * 5))  +1;
@@ -152,55 +146,36 @@ public class PageMaker {
 	//2*50 = 100
 	//100 + 1 <- next를 보여주기 위하여 산출된 값에 1을 더해주게 됨
 
-//	private int page; //현재 페이지
-//	private int cnt; //현재 페이지를 구성하는데 필요한 데이터의 수
-//	private int lineCount; //화면에서 보여주는 페이지 수
-//	private int perPage; //한 페이지에서 보여줄 게시물의 수
-//	private int first; //페이지에서 보여줄 첫번째 게시물
-//	private int last; //페이지에서 보여줄 마지막 게시물
-
-
 	public int getRnFirst(){
 		
-		return getRnLast() - perPage;
+		return getRnLast() - lineCount;
 	}
 	
 	public int getRnLast(){
 		
-		return (page * perPage);
+		return (page * lineCount);
 	}
 	
 //	cnt의 세터가 실행이 되면 페이징에 필요한 모든 요소가 한번에 계산이 됨
 //	last의 경우 마지막 페이지 숫자를 생각해야 하므로 추가 로직이 들어감
 	public void setCnt(int cnt) {
 		this.cnt = cnt;
-//		if(cnt == getRowNum(page)){
-//			this.setHasNext(true);
-//		}else{
-//			this.setHasNext(false);
-//		}
-//		if(((lineCount*perPage)+1) < getRowNum(page)){
-//			this.setHasPrev(true);
-//		}else{
-//			this.setHasPrev(false);
-//		}
-//		setFirst(1+(((getRowNum(page)-((lineCount*perPage)+1))/(lineCount*perPage))*5));
-//		setLast(5+(((getRowNum(page)-((lineCount*perPage)+1))/(lineCount*perPage))*5));
-
+		setRowNum();
 		if(cnt == rowNum){
 			this.setHasNext(true);
 		}else{
 			this.setHasNext(false);
 		}
-		if(((lineCount*perPage)+1) < rowNum){
+		if(((perPage*lineCount)+1) < cnt){
 			this.setHasPrev(true);
 		}else{
 			this.setHasPrev(false);
 		}
-//		setFirst(1+(((rowNum-((lineCount*perPage)+1))/(lineCount*perPage))*5));
-//		setLast(5+(((rowNum-((lineCount*perPage)+1))/(lineCount*perPage))*5));
+
 		setLast((int)(Math.ceil((double)page/perPage))*perPage);
 		setFirst(last - (perPage-1));
+		
+		// 게시판의 마지막 페이지 표시
 		if(cnt != rowNum){
 			setLast(last - (int)(Math.floor((rowNum-cnt)/10)));
 		}
@@ -214,24 +189,10 @@ public class PageMaker {
 				+ hasPrev + ", rowNum=" + rowNum + "]";
 	}
 
-
-
-	
-	
-	
 //	public static void main(String[] args) {
 //
 //		PageMaker maker = new PageMaker(12);
 //		System.out.println(maker.getRowNum());
 //	}
 //	
-	
-	
-	
 }
-
-
-
-
-
-

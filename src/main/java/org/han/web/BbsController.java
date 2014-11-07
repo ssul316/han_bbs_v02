@@ -52,11 +52,7 @@ public class BbsController {
 		
 //		pageMaker에 현재 페이지, 페이징에 필요한 총 데이터 set
 		pm.setPage(page);
-		pm.setRowNum(page);
 		pm.setCnt(list.get(0).getCnt());
-		System.out.println(pm.getRowNum());
-		System.out.println(pm.getFirst());
-		System.out.println(pm.getLast());
 		
 //		model에 출력목록, pageMaker 집어넣음
 		model.addAttribute("list", list);
