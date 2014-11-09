@@ -5,6 +5,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.han.mapper.BbsMapper;
+import org.han.util.PageMaker;
 import org.han.vo.BbsVO;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,15 @@ public class BbsService {
 		mapper.create(vo);
 	}
 	
-	public List<BbsVO> read(String page){
-		return mapper.read(page);
+	public List<BbsVO> list(PageMaker pm){
+		return mapper.list(pm);
+	}
+	
+	public BbsVO read(int bno) {
+		return mapper.read(bno);
+	}
+	
+	public void delete(int bno) {
+		mapper.delete(bno);
 	}
 }

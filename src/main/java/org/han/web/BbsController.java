@@ -29,6 +29,7 @@ public class BbsController {
 	PageMaker pm;
 	
 	private static Logger logger = LoggerFactory.getLogger(BbsController.class);
+
 	
 //	글쓰기 화면으로 이동
 	@RequestMapping("/cboard")
@@ -45,18 +46,38 @@ public class BbsController {
 	
 //	메인화면
 	@RequestMapping("/list")
-	public String list(@RequestParam(value="page", defaultValue="1")String page, Model model) {
+	public String list(@RequestParam(value="types", defaultValue="") String[] types, @ModelAttribute PageMaker pm, Model model) {
 		
+		pm.setTypeArr(types);
+
 //		화면에 출력할 목록 산출
-		List<BbsVO> list = service.read(page);
-		
+		// 검색어 및 getSql이 들어있는 PageMaker를 변수로 전달한다. 변수로 전달하지 않으면 getSql문이 작동하지 않으니 주의
+		List<BbsVO> list = service.list(pm);
+
 //		pageMaker에 현재 페이지, 페이징에 필요한 총 데이터 set
-		pm.setPage(page);
-		pm.setCnt(list.get(0).getCnt());
-		
+		if(list.isEmpty()){
+			pm.setCnt(0);
+		}else{
+			pm.setCnt(list.get(0).getCnt());
+		}
+
 //		model에 출력목록, pageMaker 집어넣음
 		model.addAttribute("list", list);
 		model.addAttribute("pageMaker", pm);
 		return "bbs/list";
+	}
+	
+	// 게시글 읽기
+	@RequestMapping("/read")
+	public String read(@RequestParam(value="bno", defaultValue="") int bno, Model model){
+		model.addAttribute("vo", service.read(bno));
+		return "bbs/read";
+	}
+	
+	// 게시글 지우기
+	@RequestMapping("/delete")
+	public String delete(@RequestParam(value="bno", defaultValue="") int bno){
+		service.delete(bno);
+		return "redirect:list";
 	}
 }

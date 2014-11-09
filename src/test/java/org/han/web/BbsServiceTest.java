@@ -34,12 +34,16 @@ public class BbsServiceTest {
 		service.create(vo);
 	}
 	
+//	@Test
+//	public void listTest() {
+//		List<BbsVO> list = service.list("1");
+//		for (BbsVO obj : list) {
+//			System.out.println(obj);
+//		}
+//	}
+	
 	@Test
 	public void readTest() {
-		List<BbsVO> list = service.read("1");
-		for (BbsVO obj : list) {
-			System.out.println(obj);
-		}
+		logger.info(service.read(524));
 	}
-
 }
