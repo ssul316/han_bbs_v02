@@ -9,11 +9,12 @@
 <body>
 
 <!-- 글 수정화면 (작업중)-->
-<form action="create" accept-charset="utf-8" id="ins" method="post">
+<form action="update" accept-charset="utf-8" id="ins" method="post">
     <h1>게시글을 수정해주세요</h1>
     <br>
-    <p>글 제목<input type="text" name="title" values></p>
-    <p>내용<textarea name="cont" rows="3" cols="50"></textarea></p>
+    <p>글 제목<textarea name="title" rows="1" cols="50">${vo.title }</textarea></p>
+    <p>내용<textarea name="cont" rows="3" cols="50">${vo.cont }</textarea></p>
+    <input type="hidden" name="bno" value=${vo.bno }>
     <input type="submit">
     
 </form>

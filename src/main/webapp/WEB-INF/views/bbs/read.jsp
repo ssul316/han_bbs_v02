@@ -15,7 +15,7 @@
 ${vo.cont }
 
 <br>
-<button><a href="update?bno=${vo.bno }">글수정</a></button>
+<button><a href="uboard?bno=${vo.bno }">글수정</a></button>
 <button><a href="delete?bno=${vo.bno }">글삭제</a></button>
 </body>
 </html>

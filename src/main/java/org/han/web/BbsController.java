@@ -80,4 +80,18 @@ public class BbsController {
 		service.delete(bno);
 		return "redirect:list";
 	}
+	
+	// 게시글 수정화면 이동
+	@RequestMapping("/uboard")
+	public String uboard(@ModelAttribute BbsVO vo, Model model){
+		model.addAttribute("vo", service.read(vo.getBno()));
+		return "bbs/uboard";
+	}
+	
+	// 게시글 수정
+	@RequestMapping("/update")
+	public String update(@ModelAttribute BbsVO vo){
+		service.update(vo);
+		return "redirect:read?bno=" + vo.getBno();
+	}
 }

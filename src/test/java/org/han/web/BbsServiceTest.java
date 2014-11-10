@@ -46,4 +46,13 @@ public class BbsServiceTest {
 	public void readTest() {
 		logger.info(service.read(524));
 	}
+	
+	@Test
+	public void updateTest() {
+		vo.setBno(524);
+		vo.setTitle("더 월드!!!");
+		vo.setCont("그리고 시간은 움직인다.");
+		
+		service.update(vo);
+	}
 }

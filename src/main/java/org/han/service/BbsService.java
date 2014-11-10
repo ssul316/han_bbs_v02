@@ -33,4 +33,8 @@ public class BbsService {
 	public void delete(int bno) {
 		mapper.delete(bno);
 	}
+	
+	public void update(BbsVO vo) {
+		mapper.update(vo);
+	}
 }

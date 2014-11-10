@@ -308,10 +308,10 @@ public class PageMaker {
 			builder.append(colMap.get(key) + " like '%'||#{key}||'%' or ");
 		}
 		
-		// substring을 이용하여 구문 맨 마지막 부분의 필요없는 " and "를 제거해준다
+		// substring을 이용하여 구문 맨 마지막 부분의 필요없는 " or "를 제거해준다
 		// 첫번째 숫자는 기준이 될 문자열의 부분이고 두번째는 기준부터 몇번째 글자까지 반환할것인가를 정해준다
 		// 여기서는 문자열 전체의 길이에서 -3만큼 잘라내고 반환하는것이기에 "or "부분까지 잘라내고 나머지 값을 반환하게 된다
-		return builder.substring(0, builder.length()-4);
+		return builder.substring(0, builder.length()-3);
 		
 	}
 	

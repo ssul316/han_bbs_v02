@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.han.util.PageMaker;
 import org.han.vo.BbsVO;
 
@@ -21,4 +22,7 @@ public interface BbsMapper {
 	
 	@Delete("delete from tbl_bbs where bno = #{bno}")
 	public void delete(int bno);
+	
+	@Update("update tbl_bbs set title = #{title}, cont = #{cont} where bno = #{bno}")
+	public void update(BbsVO vo);
 }
