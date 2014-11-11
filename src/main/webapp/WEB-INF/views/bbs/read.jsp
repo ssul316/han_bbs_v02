@@ -1,21 +1,21 @@
-<%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>${vo.title }</title>
 </head>
 <body>
 <h2><strong>${vo.title }</strong></h2>
-ÀÛ¼ºÀÚ:${vo.userid }
-ÀÛ¼ºÀÏ:${vo.regdate }
+ì‘ì„±ì:${vo.userid }
+ì‘ì„±ì¼:${vo.regdate }
 <br>
 <br>
 ${vo.cont }
 
 <br>
-<button><a href="uboard?bno=${vo.bno }">±Û¼öÁ¤</a></button>
-<button><a href="delete?bno=${vo.bno }">±Û»èÁ¦</a></button>
+<button><a href="uboard?bno=${vo.bno }">ê¸€ìˆ˜ì •</a></button>
+<button><a href="delete?bno=${vo.bno }">ê¸€ì‚­ì œ</a></button>
 </body>
 </html>

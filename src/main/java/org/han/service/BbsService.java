@@ -23,7 +23,13 @@ public class BbsService {
 	}
 	
 	public List<BbsVO> list(PageMaker pm){
-		return mapper.list(pm);
+		List<BbsVO> list = mapper.list(pm);
+		if(list.isEmpty()){
+			pm.setCnt(0);
+		}else{
+			pm.setCnt(list.get(0).getCnt());
+		}
+		return list;
 	}
 	
 	public BbsVO read(int bno) {

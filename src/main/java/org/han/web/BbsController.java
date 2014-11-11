@@ -1,5 +1,6 @@
 package org.han.web;
 
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -46,25 +47,27 @@ public class BbsController {
 	
 //	메인화면
 	@RequestMapping("/list")
-	public String list(@RequestParam(value="types", defaultValue="") String[] types, @ModelAttribute PageMaker pm, Model model) {
+	//public String list(@RequestParam(value="types", defaultValue="") String[] types, @ModelAttribute PageMaker pm, Model model) {
+	public void list(@ModelAttribute PageMaker pm, Model model) {
 		
-		pm.setTypeArr(types);
+		//pm.setTypeArr(types);
 
 //		화면에 출력할 목록 산출
 		// 검색어 및 getSql이 들어있는 PageMaker를 변수로 전달한다. 변수로 전달하지 않으면 getSql문이 작동하지 않으니 주의
-		List<BbsVO> list = service.list(pm);
+//		List<BbsVO> list = service.list(pm);
 
 //		pageMaker에 현재 페이지, 페이징에 필요한 총 데이터 set
-		if(list.isEmpty()){
-			pm.setCnt(0);
-		}else{
-			pm.setCnt(list.get(0).getCnt());
-		}
+//		if(list.isEmpty()){
+//			pm.setCnt(0);
+//		}else{
+//			pm.setCnt(list.get(0).getCnt());
+//		}
 
 //		model에 출력목록, pageMaker 집어넣음
-		model.addAttribute("list", list);
-		model.addAttribute("pageMaker", pm);
-		return "bbs/list";
+		logger.info("waaaagh!!!");
+		model.addAttribute("list", service.list(pm));
+//		model.addAttribute("pageMaker", pm);
+//		return "bbs/list";
 	}
 	
 	// 게시글 읽기

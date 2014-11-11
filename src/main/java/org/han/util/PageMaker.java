@@ -22,13 +22,23 @@ public class PageMaker {
 	private boolean hasPrev = false;	// prev버튼 표현여부
 	private int rowNum;					// cnt를 생각하지 않은 페이징 구성에 필요한 데이터 값
 	private String keyword;				// 검색 키워드
-	private String[] typeArr;				// 검색할 구분들을 모아둔 배열
 	private Map<String, String> criMap;	// 검색구분, 키워드
 	private Map<String, String> colMap;	// 검색구분, 검색구분에 따른 sql문
 	private List<String> values;		// criMap의 value값과 dummy의 배열
+	private String[] types;
+	
+	
 	
 
 	
+	public String[] getTypes() {
+		return types;
+	}
+
+	public void setTypes(String[] types) {
+		this.types = types;
+	}
+
 	public String getKeyword() {
 		return keyword;
 	}
@@ -186,14 +196,6 @@ public class PageMaker {
 		
 		return (page * lineCount);
 	}
-	
-	public String[] getTypeArr() {
-		return typeArr;
-	}
-
-	public void setTypeArr(String[] typeArr) {
-		this.typeArr = typeArr;
-	}
 
 	public Map<String, String> getCriMap() {
 		return criMap;
@@ -252,12 +254,12 @@ public class PageMaker {
 	
 	public String checked(String type){
 		
-		if(typeArr == null || typeArr.length == 0){
+		if(types == null || types.length == 0){
 			return "";
 		}
-		for(int i = 0; i < typeArr.length; i++){
+		for(int i = 0; i < types.length; i++){
 			
-			if(typeArr[i].equals(type)){
+			if(types[i].equals(type)){
 				return "checked";
 			}
 		}
@@ -268,7 +270,7 @@ public class PageMaker {
 	public String getSql() {
 		
 		// type이 체크되어있어도 keyword가 없으면 검색이 안되도록 설정
-		if(keyword == null || keyword.length() == 0 || typeArr == null){
+		if(keyword == null || keyword.length() == 0 || types == null){
 			return "";
 		}
 		
@@ -279,7 +281,7 @@ public class PageMaker {
 		colMap.put("w", "userid");
 		colMap.put("c", "cont");
 		
-		for (String type : typeArr) {
+		for (String type : types) {
 			criMap.put(type, keyword);
 		}
 		
@@ -325,7 +327,7 @@ public class PageMaker {
 				+ lineCount + ", perPage=" + perPage + ", first=" + first
 				+ ", last=" + last + ", hasNext=" + hasNext + ", hasPrev="
 				+ hasPrev + ", rowNum=" + rowNum + ", keyword=" + keyword
-				+ ", typeArr=" + Arrays.toString(typeArr) + ", criMap="
+				+ ", types=" + Arrays.toString(types) + ", criMap="
 				+ criMap + ", colMap=" + colMap + ", values=" + values + "]";
 	}
 
